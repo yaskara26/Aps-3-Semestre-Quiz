@@ -39,7 +39,7 @@ function montarPergunta(pergunta) {
 
   return `
         <li class="questao" id="questao-${id}">
-            <p>${enunciado}</p>
+            <p class="enunciado">${enunciado}</p>
             <ol id="questao" type="a">
                 <li>
                     <input  type="radio" name="alternativa" id="a" value="${alternativas.a}"/>
@@ -167,35 +167,70 @@ async function enviarQuiz(event) {
 document.getElementById("finalizar-quiz").addEventListener('click', enviarQuiz)
 
 document.addEventListener("DOMContentLoaded", () => {
-  const mapa = document.getElementsByTagName("svg")[0];
-  // Acessa o conteúdo do SVG
-  mapa.addEventListener("load", () => {
+    const mapa = document.getElementsByTagName("svg")[0];
+    console.log(mapa)
+    // Acessa o conteúdo do SVG
+    mapa.addEventListener("load", () => {
+  
+      // Seleciona todos os estados pelo ID ou classe
+      const estados = mapa.querySelectorAll('[id^="estado-"]');
+  
+      estados.forEach((estado) => {
+        // Salva a cor original do estado
+        const corOriginal = estado.style.fill;
+  
+        // Adiciona evento de clique
+        estado.addEventListener("click", () => {
+            showAside(estado.id);
+            showBtniniciarQuiz();
+          alert(`Você clicou no estado: ${estado.id}`);
+        });
+  
+        // Adiciona efeito de hover
+        estado.addEventListener("mouseover", () => {
+          estado.style.fill = "#77777780";
+        });
+  
+        // Retorna à cor original no mouseout
+        estado.addEventListener("mouseout", () => {
+          estado.style.fill = corOriginal;
+        });
+      });
+    });
+  });
 
-    // Seleciona todos os estados pelo ID ou classe
-    const estados = mapa.querySelectorAll('[id^="estado-"]');
 
-    estados.forEach((estado) => {
-      // Salva a cor original do estado
-      const corOriginal = estado.style.fill;
 
-      // Adiciona evento de clique
-      estado.addEventListener("click", () => {
-        showAside(estado.id);
-        showBtniniciarQuiz();
-        // alert(`Você clicou no estado: ${estado.id}`);
-      }),
+// document.addEventListener("DOMContentLoaded", () => {
+//   const mapa = document.getElementsByTagName("svg")[0];
+//   // Acessa o conteúdo do SVG
+//   mapa.addEventListener("load", () => {
 
-      // Adiciona efeito de hover
+//     // Seleciona todos os estados pelo ID ou classe
+//     const estados = mapa.querySelectorAll('[id^="estado-"]');
 
-      estado.addEventListener("mouseover", () => {
-        estado.style.fill = "#77777780";
-      }),
+//     estados.forEach((estado) => {
+//       // Salva a cor original do estado
+//       const corOriginal = estado.style.fill;
 
-      // Retorna à cor original no mouseout
-      estado.addEventListener("mouseout", () => {
-            estado.style.fill = corOriginal;
-      })
-    }
-    )
-  })
-});
+//       // Adiciona evento de clique
+//       estado.addEventListener("click", () => {
+//         showAside(estado.id);
+//         showBtniniciarQuiz();
+//         // alert(`Você clicou no estado: ${estado.id}`);
+//       }),
+
+//       // Adiciona efeito de hover
+
+//       estado.addEventListener("mouseover", () => {
+//         estado.style.fill = "#77777780";
+//       }),
+
+//       // Retorna à cor original no mouseout
+//       estado.addEventListener("mouseout", () => {
+//             estado.style.fill = corOriginal;
+//       })
+//     }
+//     )
+//   })
+// });
