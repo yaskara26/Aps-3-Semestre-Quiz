@@ -1,0 +1,224 @@
+{
+    "questoes": [
+        {
+            "idQuestao" : 1,
+            "enunciado": "Onde se deve descartar a pilha?",
+            "alternativas": [
+                {
+                    "idAlternativa": 8,
+                    "conteudo": "no mato"
+                },
+                {
+                    "idAlternativa": 7,
+                    "conteudo": "no rio"
+                },
+                {
+                    "idAlternativa": 6,
+                    "conteudo": "no centro reciclavel"
+                },
+                {
+                    "idAlternativa": 5,
+                    "conteudo": "no lixo comum"
+                }
+            ]
+        },
+        {
+            "idQuestao" : 1,
+            "enunciado": "Onde se deve descartar a pilha?",
+            "alternativas": [
+                {
+                    "idAlternativa": 8,
+                    "conteudo": "no mato"
+                },
+                {
+                    "idAlternativa": 7,
+                    "conteudo": "no rio"
+                },
+                {
+                    "idAlternativa": 6,
+                    "conteudo": "no centro reciclavel"
+                },
+                {
+                    "idAlternativa": 5,
+                    "conteudo": "no lixo comum"
+                }
+            ]
+        },
+        {
+            "idQuestao" : 1,
+            "enunciado": "Onde se deve descartar a pilha?",
+            "alternativas": [
+                {
+                    "idAlternativa": 8,
+                    "conteudo": "no mato"
+                },
+                {
+                    "idAlternativa": 7,
+                    "conteudo": "no rio"
+                },
+                {
+                    "idAlternativa": 6,
+                    "conteudo": "no centro reciclavel"
+                },
+                {
+                    "idAlternativa": 5,
+                    "conteudo": "no lixo comum"
+                }
+            ]
+        },
+        {
+            "idQuestao" : 1,
+            "enunciado": "Onde se deve descartar a pilha?",
+            "alternativas": [
+                {
+                    "idAlternativa": 8,
+                    "conteudo": "no mato"
+                },
+                {
+                    "idAlternativa": 7,
+                    "conteudo": "no rio"
+                },
+                {
+                    "idAlternativa": 6,
+                    "conteudo": "no centro reciclavel"
+                },
+                {
+                    "idAlternativa": 5,
+                    "conteudo": "no lixo comum"
+                }
+            ]
+        },
+        {
+            "idQuestao" : 1,
+            "enunciado": "Onde se deve descartar a pilha?",
+            "alternativas": [
+                {
+                    "idAlternativa": 8,
+                    "conteudo": "no mato"
+                },
+                {
+                    "idAlternativa": 7,
+                    "conteudo": "no rio"
+                },
+                {
+                    "idAlternativa": 6,
+                    "conteudo": "no centro reciclavel"
+                },
+                {
+                    "idAlternativa": 5,
+                    "conteudo": "no lixo comum"
+                }
+            ]
+        },
+        {
+            "idQuestao" : 1,
+            "enunciado": "Onde se deve descartar a pilha?",
+            "alternativas": [
+                {
+                    "idAlternativa": 8,
+                    "conteudo": "no mato"
+                },
+                {
+                    "idAlternativa": 7,
+                    "conteudo": "no rio"
+                },
+                {
+                    "idAlternativa": 6,
+                    "conteudo": "no centro reciclavel"
+                },
+                {
+                    "idAlternativa": 5,
+                    "conteudo": "no lixo comum"
+                }
+            ]
+        },
+        {
+            "idQuestao" : 1,
+            "enunciado": "Onde se deve descartar a pilha?",
+            "alternativas": [
+                {
+                    "idAlternativa": 8,
+                    "conteudo": "no mato"
+                },
+                {
+                    "idAlternativa": 7,
+                    "conteudo": "no rio"
+                },
+                {
+                    "idAlternativa": 6,
+                    "conteudo": "no centro reciclavel"
+                },
+                {
+                    "idAlternativa": 5,
+                    "conteudo": "no lixo comum"
+                }
+            ]
+        },
+        {
+            "idQuestao" : 1,
+            "enunciado": "Onde se deve descartar a pilha?",
+            "alternativas": [
+                {
+                    "idAlternativa": 8,
+                    "conteudo": "no mato"
+                },
+                {
+                    "idAlternativa": 7,
+                    "conteudo": "no rio"
+                },
+                {
+                    "idAlternativa": 6,
+                    "conteudo": "no centro reciclavel"
+                },
+                {
+                    "idAlternativa": 5,
+                    "conteudo": "no lixo comum"
+                }
+            ]
+        },
+        {
+            "idQuestao" : 1,
+            "enunciado": "Onde se deve descartar a pilha?",
+            "alternativas": [
+                {
+                    "idAlternativa": 8,
+                    "conteudo": "no mato"
+                },
+                {
+                    "idAlternativa": 7,
+                    "conteudo": "no rio"
+                },
+                {
+                    "idAlternativa": 6,
+                    "conteudo": "no centro reciclavel"
+                },
+                {
+                    "idAlternativa": 5,
+                    "conteudo": "no lixo comum"
+                }
+            ]
+        },
+        {
+            "idQuestao" : 1,
+            "enunciado": "Onde se deve descartar a pilha?",
+            "alternativas": [
+                {
+                    "idAlternativa": 8,
+                    "conteudo": "no mato"
+                },
+                {
+                    "idAlternativa": 7,
+                    "conteudo": "no rio"
+                },
+                {
+                    "idAlternativa": 6,
+                    "conteudo": "no centro reciclavel"
+                },
+                {
+                    "idAlternativa": 5,
+                    "conteudo": "no lixo comum"
+                }
+            ]
+        }
+    ]
+}

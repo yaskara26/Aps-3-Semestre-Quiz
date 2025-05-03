@@ -1,0 +1,69 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Poppins", sans-serif;
+  /* max-width: 1400px; */
+  width: 100vw;
+  margin: 0 auto;
+  background-color: #2e4f7d;
+  display: flex;
+  justify-content: space-between;
+}
+
+/*Mapa .svg*/
+.mapdiv {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+#svg8360 {
+  height: 100vh;
+  /* width: 100vw; */
+  /* margin-left: -25%; */
+}
+/* 
+.mapdiv object {
+    height: 100dvh; 
+}
+*/
+
+/*Fim Mapa .svg*/
+
+/*Texto do Mapa*/
+.map-text {
+  position: absolute;
+  /* top: 20px; */
+  /* right: 140px; */
+  text-align: center;
+}
+
+.map-text h2 {
+  font-size: 42px;
+}
+
+.map-text p {
+  font-size: 16px;
+}
+/*Texto do Mapa*/
+
+aside {
+  width: 500px;
+  background-color: aliceblue;
+  display: grid;
+  justify-content: center;
+}
+
+.hidden {
+  display: none;
+}
+
+li.questao{
+  display: none;
+}
+
+li.questao.selected {
+  display: block;
+}
