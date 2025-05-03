@@ -12,7 +12,7 @@ function showBtniniciarQuiz() {
 }
 
 async function buscarQuiz() {
-    idRegiao = 1;
+    idRegiao = 3;
     const url = `https://api-regioes-meioambiente.onrender.com/${idRegiao}/questao`;
     try {
         const response = await fetch(url);
@@ -41,19 +41,19 @@ function montarPergunta(pergunta) {
         <li class="questao" id="questao-${id}">
             <p class="enunciado">${enunciado}</p>
             <ol id="questao" type="a">
-                <li>
+                <li class="alternativa">
                     <input  type="radio" name="alternativa" id="a" value="${alternativas.a}"/>
                     <label for="a">${alternativas.a}</label>
                 </li>
-                <li>
+                <li class="alternativa">
                     <input  type="radio" name="alternativa" id="b" value="${alternativas.b}"/>
                     <label for="b">${alternativas.b}</label>
                 </li>
-                <li>
+                <li class="alternativa">
                     <input  type="radio" name="alternativa" id="c" value="${alternativas.c}"/>
                     <label for="c">${alternativas.c}</label>
                 </li>
-                <li>
+                <li class="alternativa">
                     <input  type="radio" name="alternativa" id="d" value="${alternativas.d}"/>
                     <label for="d">${alternativas.d}</label>
                 </li>

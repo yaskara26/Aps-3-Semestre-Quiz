@@ -74,9 +74,11 @@ form {
 .enunciado {
   margin-bottom: 10px;
 }
-/* .alternativas {
-  margin-top: 10px;
-} */
+
+.alternativa {
+  margin-bottom: 10px;
+}
+
 .hidden {
   display: none;
 }
