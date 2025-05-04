@@ -1,6 +1,8 @@
 let idRegiao = 0;
 
-function showAside(id) {
+function normalizarId(estadoId){}
+
+function showAside(estadoId) {
     idRegiao = id;
   const aside = document.getElementsByTagName("aside")[0];
   aside.classList.remove("hidden");
@@ -24,6 +26,37 @@ async function buscarQuiz() {
         return json;
     } catch(error) {
         console.error(error.message);
+    }
+}
+
+async function buscarInfoRegiao(regiao) {
+    const url = `https://api-regioes-meioambiente.onrender.com/info_regiao?regiao_nome=${regiao}`;
+    try {
+      let resp = await fetch(url)
+      if (!resp.ok) {
+        throw new Error(`Erro na requisição: ${resp.statusText}`);
+      }
+      let data = await resp.json()
+      return data
+    } catch (error) {
+      console.error('Erro ao buscar informações da questão:', error);
+      return
+    }
+}
+
+async function questoes(numero) {
+    console.log("Questoes numero", numero)
+    const url = `https://api-regioes-meioambiente.onrender.com/${numero}/questao`;
+    try {
+      let response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Erro na requisição: ${response.statusText}`);
+      }
+      const data = await response.json();
+      return data; // Retorna o objeto com a resposta da API
+    } catch (error) {
+      console.error('Erro ao buscar informações da questão:', error);
+      return { error: error.message }; 
     }
 }
 
@@ -166,14 +199,48 @@ async function enviarQuiz(event) {
 
 document.getElementById("finalizar-quiz").addEventListener('click', enviarQuiz)
 
+// document.addEventListener("DOMContentLoaded", () => {
+//     const mapa = document.getElementsByTagName("svg")[0];
+//     console.log(mapa)
+//     // Acessa o conteúdo do SVG
+//     mapa.addEventListener("load", () => {
+  
+//       // Seleciona todos os estados pelo ID ou classe
+//       const estados = mapa.querySelectorAll('[id^="estado-"]');
+  
+//       estados.forEach((estado) => {
+//         // Salva a cor original do estado
+//         const corOriginal = estado.style.fill;
+  
+//         // Adiciona evento de clique
+//         estado.addEventListener("click", () => {
+//             showAside(estado.id);
+//             showBtniniciarQuiz();
+//           alert(`Você clicou no estado: ${estado.id}`);
+//         });
+  
+//         // Adiciona efeito de hover
+//         estado.addEventListener("mouseover", () => {
+//           estado.style.fill = "#77777780";
+//         });
+  
+//         // Retorna à cor original no mouseout
+//         estado.addEventListener("mouseout", () => {
+//           estado.style.fill = corOriginal;
+//         });
+//       });
+//     });
+//   });
+
 document.addEventListener("DOMContentLoaded", () => {
-    const mapa = document.getElementsByTagName("svg")[0];
-    console.log(mapa)
+    const mapa = document.getElementById("mapa-brasil");
+  
     // Acessa o conteúdo do SVG
     mapa.addEventListener("load", () => {
+      const svgDoc = mapa.contentDocument;
   
       // Seleciona todos os estados pelo ID ou classe
-      const estados = mapa.querySelectorAll('[id^="estado-"]');
+      const estados = svgDoc.querySelectorAll('[id^="estado-BR"]');
   
       estados.forEach((estado) => {
         // Salva a cor original do estado
@@ -182,55 +249,33 @@ document.addEventListener("DOMContentLoaded", () => {
         // Adiciona evento de clique
         estado.addEventListener("click", () => {
             showAside(estado.id);
+            console.log(estado.id)
+            console.log(estado)
             showBtniniciarQuiz();
-          alert(`Você clicou no estado: ${estado.id}`);
+            alert(`Você clicou no estado: ${estado.id}`);
         });
   
-        // Adiciona efeito de hover
-        estado.addEventListener("mouseover", () => {
-          estado.style.fill = "#77777780";
+          // Adiciona efeito de hover
+          estado.addEventListener("mouseover", () => {
+            t_regiao = estado.className.animVal.split(" ")[1]
+            
+            regioes = svgDoc.querySelectorAll(`.${t_regiao}`)
+            for (let i = 0; i < regioes.length; i++){
+                regioes[i].style.fill = "#1f3b60"
+            }
         });
+  
   
         // Retorna à cor original no mouseout
         estado.addEventListener("mouseout", () => {
-          estado.style.fill = corOriginal;
+            t_regiao = estado.className.animVal.split(" ")[1]
+            
+            regioes = svgDoc.querySelectorAll(`.${t_regiao}`)
+            console.log(regioes)
+            for (let i = 0; i < regioes.length; i++){
+                regioes[i].style.fill = corOriginal
+            }
         });
       });
     });
   });
-
-
-
-// document.addEventListener("DOMContentLoaded", () => {
-//   const mapa = document.getElementsByTagName("svg")[0];
-//   // Acessa o conteúdo do SVG
-//   mapa.addEventListener("load", () => {
-
-//     // Seleciona todos os estados pelo ID ou classe
-//     const estados = mapa.querySelectorAll('[id^="estado-"]');
-
-//     estados.forEach((estado) => {
-//       // Salva a cor original do estado
-//       const corOriginal = estado.style.fill;
-
-//       // Adiciona evento de clique
-//       estado.addEventListener("click", () => {
-//         showAside(estado.id);
-//         showBtniniciarQuiz();
-//         // alert(`Você clicou no estado: ${estado.id}`);
-//       }),
-
-//       // Adiciona efeito de hover
-
-//       estado.addEventListener("mouseover", () => {
-//         estado.style.fill = "#77777780";
-//       }),
-
-//       // Retorna à cor original no mouseout
-//       estado.addEventListener("mouseout", () => {
-//             estado.style.fill = corOriginal;
-//       })
-//     }
-//     )
-//   })
-// });
