@@ -1,8 +1,7 @@
 let idRegiao = 0;
 
-
 function showAside(estadoId) {
-    idRegiao = estadoId;
+  idRegiao = estadoId;
   const aside = document.getElementsByTagName("aside")[0];
   aside.classList.remove("hidden");
 }
@@ -13,7 +12,6 @@ function showBtniniciarQuiz() {
 }
 
 async function buscarQuiz() {
-    idRegiao = 3;
     const url = `https://api-regioes-meioambiente.onrender.com/${idRegiao}/questao`;
     try {
         const response = await fetch(url);
@@ -44,8 +42,7 @@ async function buscarInfoRegiao(regiao) {
 }
 
 async function questoes(numero) {
-    console.log("Questoes numero", numero)
-    const url = `https://api-regioes-meioambiente.onrender.com/${numero}/questao`;
+    const url = `https://api-regioes-meioambiente.onrender.com/${idRegiao}/questao`;
     try {
       let response = await fetch(url);
       if (!response.ok) {
@@ -134,7 +131,7 @@ function ativarBotaoPorId(id) {
 }
 
 iniciarQuiz.addEventListener('click', async () => {
-  let quizBuscado = await buscarQuiz();
+  let quizBuscado = await questoes();
   let idQuestaoAtual = quizBuscado[0].id;
 
   montarQuiz(quizBuscado);
@@ -147,7 +144,6 @@ iniciarQuiz.addEventListener('click', async () => {
         ativarBotaoPorId('proxBtn');
     });
   });
-
   mostrarPerguntaById("questao-" + idQuestaoAtual);
 });
 
@@ -188,7 +184,7 @@ async function buscarResultados(respostas) {
     }
 }
 
-async function enviarQuiz(event) {
+async function enviarQuiz() {
     const respostas = []
     desativarBotaoPorId('finalizar-quiz');
     const inputsSelecionados = document.querySelectorAll("li.alternativa input[type='radio']:checked");
@@ -202,11 +198,12 @@ async function enviarQuiz(event) {
     pontuacao.textContent = resultado.quant_acertos;
     esconderElementoById('quiz');
     mostrarElementoById('pontuacao')
-
-    event.preventDefault();
 }
 
-document.getElementById("finalizar-quiz").addEventListener('click', enviarQuiz)
+document.getElementById("finalizar-quiz").addEventListener('click', () => {
+    enviarQuiz();
+    setTimeout(window.location.reload.bind(window.location), 2000);
+})
 
 // document.addEventListener("DOMContentLoaded", () => {
 //     const mapa = document.getElementsByTagName("svg")[0];
@@ -247,36 +244,30 @@ document.addEventListener("DOMContentLoaded", () => {
     // Acessa o conteúdo do SVG
     mapa.addEventListener("load", () => {
       const svgDoc = mapa.contentDocument;
-  
       // Seleciona todos os estados pelo ID ou classe
       const estados = svgDoc.querySelectorAll('[id^="estado-BR"]');
-  
       estados.forEach((estado) => {
         // Salva a cor original do estado
         const corOriginal = estado.style.fill;
-  
         // Adiciona evento de clique
-        estado.addEventListener("click", () => {
+        estado.addEventListener("click", async () => {
             showAside(estado.classList[1].substring(6).toLowerCase());
             showBtniniciarQuiz();
-            alert(`Você clicou no estado: ${estado.id}`);
+            let nome_regiao = estado.className.animVal.split(" ")[1].replace("Regiao", '').toLowerCase()
+            let regiao_info = await buscarInfoRegiao(nome_regiao)
+            idRegiao = regiao_info.id
         });
-  
           // Adiciona efeito de hover
           estado.addEventListener("mouseover", () => {
             t_regiao = estado.className.animVal.split(" ")[1]
-            
             regioes = svgDoc.querySelectorAll(`.${t_regiao}`)
             for (let i = 0; i < regioes.length; i++){
                 regioes[i].style.fill = "#1f3b60"
             }
         });
-  
-  
         // Retorna à cor original no mouseout
         estado.addEventListener("mouseout", () => {
             t_regiao = estado.className.animVal.split(" ")[1]
-            
             regioes = svgDoc.querySelectorAll(`.${t_regiao}`)
             for (let i = 0; i < regioes.length; i++){
                 regioes[i].style.fill = corOriginal
