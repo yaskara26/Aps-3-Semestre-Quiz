@@ -1,4 +1,5 @@
 let idRegiao = 0;
+let nome_regiao = "";
 
 function showAside(estadoId) {
   idRegiao = estadoId;
@@ -9,21 +10,6 @@ function showAside(estadoId) {
 function showBtniniciarQuiz() {
   const iniciarQuiz = document.getElementById("iniciarQuiz");
   iniciarQuiz.classList.remove("hidden");
-}
-
-async function buscarQuiz() {
-    const url = `https://api-regioes-meioambiente.onrender.com/${idRegiao}/questao`;
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`response status: ${response.status}`)
-        }
-        const json = await response.json();
-
-        return json;
-    } catch(error) {
-        console.error(error.message);
-    }
 }
 
 async function buscarInfoRegiao(regiao) {
@@ -41,8 +27,8 @@ async function buscarInfoRegiao(regiao) {
     }
 }
 
-async function questoes(numero) {
-    const url = `https://api-regioes-meioambiente.onrender.com/${idRegiao}/questao`;
+async function questoes(regiao_nome) {
+    const url = `https://api-regioes-meioambiente.onrender.com/${regiao_nome}/questao`;
     try {
       let response = await fetch(url);
       if (!response.ok) {
@@ -131,7 +117,7 @@ function ativarBotaoPorId(id) {
 }
 
 iniciarQuiz.addEventListener('click', async () => {
-  let quizBuscado = await questoes();
+  let quizBuscado = await questoes(nome_regiao);
   let idQuestaoAtual = quizBuscado[0].id;
 
   montarQuiz(quizBuscado);
@@ -169,8 +155,9 @@ function proxPergunta(event) {
 
 proxBtn.addEventListener('click', proxPergunta);
 
+// respostas deve ser uma string separada por ,
 async function buscarResultados(respostas) {
-    const url = `https://api-regioes-meioambiente.onrender.com/respostas_corretas?regiao_id=3&respostas=${respostas}`;
+    const url = `https://api-regioes-meioambiente.onrender.com/respostas_corretas?regiao_nome=${nome_regiao}&respostas=${respostas}`;
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -188,9 +175,9 @@ async function enviarQuiz() {
     const respostas = []
     desativarBotaoPorId('finalizar-quiz');
     const inputsSelecionados = document.querySelectorAll("li.alternativa input[type='radio']:checked");
-    inputsSelecionados.forEach(input => respostas.push(input.id.split("-")[3].toUpperCase()));
-    console.log(respostas);
-
+    inputsSelecionados.forEach(
+        input => respostas.push(input.id.split("-")[3].toUpperCase())
+    );
     const resultado = await buscarResultados(respostas); 
 
     const pontuacao = document.querySelector('#pontuacao p span');
@@ -202,7 +189,7 @@ async function enviarQuiz() {
 
 document.getElementById("finalizar-quiz").addEventListener('click', () => {
     enviarQuiz();
-    setTimeout(window.location.reload.bind(window.location), 2000);
+    // setTimeout(window.location.reload.bind(window.location), 2000);
 })
 
 // document.addEventListener("DOMContentLoaded", () => {
@@ -253,9 +240,7 @@ document.addEventListener("DOMContentLoaded", () => {
         estado.addEventListener("click", async () => {
             showAside(estado.classList[1].substring(6).toLowerCase());
             showBtniniciarQuiz();
-            let nome_regiao = estado.className.animVal.split(" ")[1].replace("Regiao", '').toLowerCase()
-            let regiao_info = await buscarInfoRegiao(nome_regiao)
-            idRegiao = regiao_info.id
+            nome_regiao = estado.className.animVal.split(" ")[1].replace("Regiao", '').toLowerCase()
         });
           // Adiciona efeito de hover
           estado.addEventListener("mouseover", () => {
