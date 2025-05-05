@@ -74,19 +74,19 @@ function montarPergunta(pergunta) {
             <p class="enunciado">${enunciado}</p>
             <ol id="questao" type="a">
                 <li class="alternativa">
-                    <input  type="radio" name="questao-${id}-alternativa-a" id="questao-${id}-alternativa-a" value="${alternativas.a}"/>
+                    <input  type="radio" name="questao-${id}-alternativa" id="questao-${id}-alternativa-a" value="${alternativas.a}"/>
                     <label for="a">${alternativas.a}</label>
                 </li>
                 <li class="alternativa">
-                    <input  type="radio" name="questao-${id}-alternativa-b" id="questao-${id}-alternativa-b" value="${alternativas.b}"/>
+                    <input  type="radio" name="questao-${id}-alternativa" id="questao-${id}-alternativa-b" value="${alternativas.b}"/>
                     <label for="b">${alternativas.b}</label>
                 </li>
                 <li class="alternativa">
-                    <input  type="radio" name="questao-${id}-alternativa-c" id="questao-${id}-alternativa-c" value="${alternativas.c}"/>
+                    <input  type="radio" name="questao-${id}-alternativa" id="questao-${id}-alternativa-c" value="${alternativas.c}"/>
                     <label for="c">${alternativas.c}</label>
                 </li>
                 <li class="alternativa">
-                    <input  type="radio" name="questao-${id}-alternativa-d" id="questao-${id}-alternativa-c" value="${alternativas.d}"/>
+                    <input  type="radio" name="questao-${id}-alternativa" id="questao-${id}-alternativa-c" value="${alternativas.d}"/>
                     <label for="d">${alternativas.d}</label>
                 </li>
             </ol>
@@ -120,7 +120,7 @@ function mostrarElementoById(id) {
 
 function esconderElementoById(id) {
     const elemento = document.getElementById(id);
-    elemento.classList.add("hidden");
+    elemento.classList.addfinal("hidden");
 }
 
 function desativarBotaoPorId(id) {
@@ -257,8 +257,6 @@ document.addEventListener("DOMContentLoaded", () => {
         // Adiciona evento de clique
         estado.addEventListener("click", () => {
             showAside(estado.classList[1].substring(6).toLowerCase());
-            console.log(estado.id)
-            console.log(estado.classList[1].substring(6).toLowerCase())
             showBtniniciarQuiz();
             alert(`Você clicou no estado: ${estado.id}`);
         });
