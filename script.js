@@ -120,7 +120,7 @@ function mostrarElementoById(id) {
 
 function esconderElementoById(id) {
     const elemento = document.getElementById(id);
-    elemento.classList.addfinal("hidden");
+    elemento.classList.add("hidden");
 }
 
 function desativarBotaoPorId(id) {
@@ -161,6 +161,7 @@ function proxPergunta(event) {
             ativarBotaoPorId('finalizar-quiz')
             mostrarElementoById("finalizar-quiz");
         }
+        console.log(proxPergunta.nextElementSibling)
         mostrarPerguntaById(proxPergunta.id);
     } 
 
