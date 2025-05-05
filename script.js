@@ -13,7 +13,7 @@ function showBtniniciarQuiz() {
 }
 
 async function buscarQuiz() {
-    idRegiao = 3;
+
     const url = `https://api-regioes-meioambiente.onrender.com/${idRegiao}/questao`;
     try {
         const response = await fetch(url);
@@ -44,7 +44,6 @@ async function buscarInfoRegiao(regiao) {
 }
 
 async function questoes(numero) {
-    console.log("Questoes numero", numero)
     const url = `https://api-regioes-meioambiente.onrender.com/${numero}/questao`;
     try {
       let response = await fetch(url);
@@ -86,7 +85,7 @@ function montarPergunta(pergunta) {
                     <label for="c">${alternativas.c}</label>
                 </li>
                 <li class="alternativa">
-                    <input  type="radio" name="questao-${id}-alternativa" id="questao-${id}-alternativa-c" value="${alternativas.d}"/>
+                    <input  type="radio" name="questao-${id}-alternativa" id="questao-${id}-alternativa-d" value="${alternativas.d}"/>
                     <label for="d">${alternativas.d}</label>
                 </li>
             </ol>
@@ -161,7 +160,6 @@ function proxPergunta(event) {
             ativarBotaoPorId('finalizar-quiz')
             mostrarElementoById("finalizar-quiz");
         }
-        console.log(proxPergunta.nextElementSibling)
         mostrarPerguntaById(proxPergunta.id);
     } 
 
@@ -174,7 +172,7 @@ function proxPergunta(event) {
 proxBtn.addEventListener('click', proxPergunta);
 
 async function buscarResultados(respostas) {
-    const url = `https://api-regioes-meioambiente.onrender.com/respostas_corretas?regiao_id=3&respostas=${respostas}`;
+    const url = `https://api-regioes-meioambiente.onrender.com/respostas_corretas?regiao_nome=${idRegiao}&respostas=${respostas}`;
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -193,8 +191,6 @@ async function enviarQuiz(event) {
     desativarBotaoPorId('finalizar-quiz');
     const inputsSelecionados = document.querySelectorAll("li.alternativa input[type='radio']:checked");
     inputsSelecionados.forEach(input => respostas.push(input.id.split("-")[3].toUpperCase()));
-    console.log(respostas);
-
     const resultado = await buscarResultados(respostas); 
 
     const pontuacao = document.querySelector('#pontuacao p span');
@@ -207,39 +203,6 @@ async function enviarQuiz(event) {
 }
 
 document.getElementById("finalizar-quiz").addEventListener('click', enviarQuiz)
-
-// document.addEventListener("DOMContentLoaded", () => {
-//     const mapa = document.getElementsByTagName("svg")[0];
-//     console.log(mapa)
-//     // Acessa o conteúdo do SVG
-//     mapa.addEventListener("load", () => {
-  
-//       // Seleciona todos os estados pelo ID ou classe
-//       const estados = mapa.querySelectorAll('[id^="estado-"]');
-  
-//       estados.forEach((estado) => {
-//         // Salva a cor original do estado
-//         const corOriginal = estado.style.fill;
-  
-//         // Adiciona evento de clique
-//         estado.addEventListener("click", () => {
-//             showAside(estado.id);
-//             showBtniniciarQuiz();
-//           alert(`Você clicou no estado: ${estado.id}`);
-//         });
-  
-//         // Adiciona efeito de hover
-//         estado.addEventListener("mouseover", () => {
-//           estado.style.fill = "#77777780";
-//         });
-  
-//         // Retorna à cor original no mouseout
-//         estado.addEventListener("mouseout", () => {
-//           estado.style.fill = corOriginal;
-//         });
-//       });
-//     });
-//   });
 
 document.addEventListener("DOMContentLoaded", () => {
     const mapa = document.getElementById("mapa-brasil");
