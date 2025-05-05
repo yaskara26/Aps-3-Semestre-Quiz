@@ -1,9 +1,8 @@
 let idRegiao = 0;
 
-function normalizarId(estadoId){}
 
 function showAside(estadoId) {
-    idRegiao = id;
+    idRegiao = estadoId;
   const aside = document.getElementsByTagName("aside")[0];
   aside.classList.remove("hidden");
 }
@@ -75,19 +74,19 @@ function montarPergunta(pergunta) {
             <p class="enunciado">${enunciado}</p>
             <ol id="questao" type="a">
                 <li class="alternativa">
-                    <input  type="radio" name="alternativa" id="a" value="${alternativas.a}"/>
+                    <input  type="radio" name="questao-${id}-alternativa-a" id="questao-${id}-alternativa-a" value="${alternativas.a}"/>
                     <label for="a">${alternativas.a}</label>
                 </li>
                 <li class="alternativa">
-                    <input  type="radio" name="alternativa" id="b" value="${alternativas.b}"/>
+                    <input  type="radio" name="questao-${id}-alternativa-b" id="questao-${id}-alternativa-b" value="${alternativas.b}"/>
                     <label for="b">${alternativas.b}</label>
                 </li>
                 <li class="alternativa">
-                    <input  type="radio" name="alternativa" id="c" value="${alternativas.c}"/>
+                    <input  type="radio" name="questao-${id}-alternativa-c" id="questao-${id}-alternativa-c" value="${alternativas.c}"/>
                     <label for="c">${alternativas.c}</label>
                 </li>
                 <li class="alternativa">
-                    <input  type="radio" name="alternativa" id="d" value="${alternativas.d}"/>
+                    <input  type="radio" name="questao-${id}-alternativa-d" id="questao-${id}-alternativa-c" value="${alternativas.d}"/>
                     <label for="d">${alternativas.d}</label>
                 </li>
             </ol>
@@ -143,7 +142,7 @@ iniciarQuiz.addEventListener('click', async () => {
   esconderElementoById("iniciarQuiz");
   mostrarElementoById("quiz");
 
-  document.querySelectorAll('input[name="alternativa"]').forEach(radio => {
+  document.querySelectorAll('li.alternativa input').forEach(radio => {
     radio.addEventListener('change',() => {
         ativarBotaoPorId('proxBtn');
     });
@@ -173,24 +172,33 @@ function proxPergunta(event) {
 
 proxBtn.addEventListener('click', proxPergunta);
 
-async function enviarQuiz(event) {
-    desativarBotaoPorId('finalizar-quiz');
-
-    const url = "https://api-regioes-meioambiente.onrender.com/1/questao";
+async function buscarResultados(respostas) {
+    const url = `https://api-regioes-meioambiente.onrender.com/respostas_corretas?regiao_id=3&respostas=${respostas}`;
     try {
-        const response = await fetch(url, {
-            method: 'POST'
-        });
+        const response = await fetch(url);
         if (!response.ok) {
             throw new Error(`response status: ${response.status}`)
         }
-        const json = await response.json();
+        const resultado = await response.json();
 
-        return json;
+        return resultado;
     } catch(error) {
         console.error(error.message);
     }
+}
 
+async function enviarQuiz(event) {
+    const respostas = []
+    desativarBotaoPorId('finalizar-quiz');
+    const inputsSelecionados = document.querySelectorAll("li.alternativa input[type='radio']:checked");
+    inputsSelecionados.forEach(input => respostas.push(input.id.split("-")[3].toUpperCase()));
+    console.log(respostas);
+
+    const resultado = await buscarResultados(respostas); 
+
+    const pontuacao = document.querySelector('#pontuacao p span');
+    console.log(resultado)
+    pontuacao.textContent = resultado.quant_acertos;
     esconderElementoById('quiz');
     mostrarElementoById('pontuacao')
 
@@ -248,9 +256,9 @@ document.addEventListener("DOMContentLoaded", () => {
   
         // Adiciona evento de clique
         estado.addEventListener("click", () => {
-            showAside(estado.id);
+            showAside(estado.classList[1].substring(6).toLowerCase());
             console.log(estado.id)
-            console.log(estado)
+            console.log(estado.classList[1].substring(6).toLowerCase())
             showBtniniciarQuiz();
             alert(`Você clicou no estado: ${estado.id}`);
         });
@@ -271,7 +279,6 @@ document.addEventListener("DOMContentLoaded", () => {
             t_regiao = estado.className.animVal.split(" ")[1]
             
             regioes = svgDoc.querySelectorAll(`.${t_regiao}`)
-            console.log(regioes)
             for (let i = 0; i < regioes.length; i++){
                 regioes[i].style.fill = corOriginal
             }
