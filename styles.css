@@ -13,26 +13,22 @@ body {
   justify-content: space-between;
 }
 
-.container {
-    diplar: grid;
-    grid-template-rows: 1fr 7fr;
-    width: 70vw;
-    height: 100vh;
-}
 
 /*Mapa .svg*/
 .mapdiv {
-    width: 90%;
+    width: 70vw;
 }
+
 
 /*Fim Mapa .svg*/
 
 /*Texto do Mapa*/
 .map-text {
-  /* position: absolute;
-  text-align: center; */
-  margin-bottom: 40px;
-  max-width: 600px;
+  position: absolute;
+  text-align: center;
+  z-index: 200;
+  right: 2%;
+  top: 2%;
 }
 
 .map-text h2 {
@@ -46,7 +42,6 @@ body {
 
 /* quiz */
 aside {
-  background-color: aliceblue;
   display: flex;
   justify-content: center;
   align-items: center;
